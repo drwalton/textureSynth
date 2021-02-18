@@ -219,8 +219,10 @@ for niter = 1:Niter
                 rparents = [];
                 parents = [];
             end
-        end % if (cmask(3) | cmask(4))
-        
+        else % if (cmask(3) | cmask(4))
+            rparents = [];
+            parents = [];
+        end
         if cmask(3)
             %% Adjust cross-correlation with MAGNITUDES at other orientations/scales:
             cousins = reshape(apyr(cousinInd), [cousinSz Nor]);
@@ -431,4 +433,18 @@ end %END  MAIN LOOP
 
 im = prev_im;
 
+if ~cmask(1)
+    snr7 = [];
+end
+if ~cmask(2)
+    snr2 = [];
+end
+if ~cmask(3)
+    snr1 = [];
+    snr3 = [];
+    snr4 = [];
+end
+if ~cmask(4)
+    snr4r = [];
+end
 snrP = [snr7 snr2 snr1 snr3 snr4 snr4r snr6];
