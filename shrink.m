@@ -1,7 +1,7 @@
 function ts=shrink(t,f)
 
 % It shrinks an image in a factor f
-% in each dimension. 
+% in each dimension.
 %	ts = shrink(t,f)
 % ts may also be complex.
 % See also: expand.m, blurDn.m
@@ -20,6 +20,6 @@ Ts(2:my/f,1)=(T(y1:y2,x1-1)+T(y1:y2,x2+1))/2;
 Ts(1,1)=(T(y1-1,x1-1)+T(y1-1,x2+1)+T(y2+1,x1-1)+T(y2+1,x2+1))/4;
 Ts=fftshift(Ts);
 ts=ifft2(Ts);
-if all(imag(t)==0),
-	ts = real(ts);
+if all(imag(t)==0)
+    ts = real(ts);
 end

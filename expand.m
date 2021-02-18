@@ -1,6 +1,6 @@
 function te = expand(t,f)
 
-% Expand spatially an image t in a factor f 
+% Expand spatially an image t in a factor f
 % in X and in Y.
 % t may be complex.
 % It fills in with zeros in the Fourier domain.
@@ -8,7 +8,7 @@ function te = expand(t,f)
 % See also: shrink.m
 % JPM, May 95, Instituto de Optica, CSIC, Madrid.
 
-[my mx]=size(t);
+[my, mx]=size(t);
 my=f*my;
 mx=f*mx;
 Te=zeros(my,mx);
@@ -29,6 +29,6 @@ Te(y2+1,x1-1)=esq;
 Te(y2+1,x2+1)=esq;
 Te=fftshift(Te);
 te=ifft2(Te);
-if all(imag(t)==0),
-	te = real(te);
+if all(imag(t)==0)
+    te = real(te);
 end

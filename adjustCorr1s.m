@@ -1,14 +1,14 @@
-% [newX, snr1, M] = adjustCorr1s(X, Cx, MODE, p) 
+% [newX, snr1, M] = adjustCorr1s(X, Cx, MODE, p)
 %
 % Linearly adjust variables in X to have correlation Cx.
 % Rows of X and newX are samples of a (random) row-vector, such that:
-%    1:  newX = X * M    
-%    2:  newX' * newX = Cx 
+%    1:  newX = X * M
+%    2:  newX' * newX = Cx
 %
 % MODE is optional:
 %   0 => choose randomly from the space of linear solutions
 %   1 => simplest soln
-%   2 => minimize angle change (DEFAULT) 
+%   2 => minimize angle change (DEFAULT)
 %   3 => SVD minimal vector change soln
 %
 % p is optional:
@@ -22,11 +22,11 @@
 function [newX, snr1, M] = adjustCorr1s(X,Co,mode,p)
 
 if (exist('mode') ~= 1)
-  mode = 2;
+    mode = 2;
 end
 
 if (exist('p') ~= 1)
-  p = 1;
+    p = 1;
 end
 
 C = innerProd(X) / size(X,1);
@@ -46,14 +46,14 @@ Do = diag(sqrt(Do(Ind(size(Ind,1):-1:1))));
 Eo = Eo(:,Ind(size(Ind,1):-1:1));
 
 if (mode == 0)
-  Orth = orth(rand(size(C)));
+    Orth = orth(rand(size(C)));
 elseif (mode == 1) % eye
-  Orth = eye(size(C));
+    Orth = eye(size(C));
 elseif (mode == 2) % simple
-  Orth = E' * Eo;
+    Orth = E' * Eo;
 else     % SVD
-  [U,S,V] = svd(D * E' * Eo * inv(Do));
-  Orth = U * V';
+    [U,S,V] = svd(D * E' * Eo * inv(Do));
+    Orth = U * V';
 end
 
 M =  E * inv(D) * Orth * Do * Eo';

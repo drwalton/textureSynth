@@ -13,7 +13,7 @@ close all
 Nsc = 4; % Number of scales
 Nor = 4; % Number of orientations
 Na = 5;  % Spatial neighborhood is Na x Na coefficients
-			% It must be an odd number!
+% It must be an odd number!
 
 im0 = pgmRead('nuts.pgm');	% Warning: im0 is a double float matrix!
 

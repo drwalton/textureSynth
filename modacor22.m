@@ -1,4 +1,4 @@
-function [Y,snrV,Chf]=modacor22(X,Cy,p);
+function [Y,snrV,Chf]=modacor22(X,Cy,p)
 
 % It imposes the desired autocorrelation in the given (central) samples (Cy) to
 % an image X, convolving it with an even filter of size(Cy), in such a way
@@ -8,30 +8,30 @@ function [Y,snrV,Chf]=modacor22(X,Cy,p);
 %	p [OPTIONAL]:	mixing proportion between Cx and Cy
 %			it imposes (1-p)*Cx + p*Cy,
 %			being Cx the actual autocorrelation.
-%			DEFAULT: p = 1; 
+%			DEFAULT: p = 1;
 
 % JPM, 10/97, working with EPS, NYU
 
 Warn = 0;  % Set to 1 if you want to see warning messages
 if (exist('p') ~= 1)
-  p = 1;
+    p = 1;
 end
 
 % Compute the autocorrelation function of the original image
 
 [Ny,Nx]=size(X);
-Nc=size(Cy,1); 	% Normally Nc<<Nx, only the low indices of the autocorrelation	
-if (2*Nc-1 > Nx) & Warn
-  warning('Autocorrelation neighborhood too large for image: reducing');
-  Nc = 2*floor(Nx/4)-1;
-  first = (size(Cy,1)-Nc)/2;
-  Cy = Cy(first+1:first+Nc, first+1:first+Nc);
+Nc=size(Cy,1); 	% Normally Nc<<Nx, only the low indices of the autocorrelation
+if (2*Nc-1 > Nx) && Warn
+    warning('Autocorrelation neighborhood too large for image: reducing');
+    Nc = 2*floor(Nx/4)-1;
+    first = (size(Cy,1)-Nc)/2;
+    Cy = Cy(first+1:first+Nc, first+1:first+Nc);
 end
 
 Xf=fft2(X);
 Xf2=abs(Xf).^2;
 Cx=fftshift(real(ifft2(Xf2)))/(2-isreal(X));
-Cy=Cy*prod(size(X));	% Unnormalize the previously normalized correlation
+Cy=Cy*numel(X);	% Unnormalize the previously normalized correlation
 
 cy=Ny/2+1;
 cx=Nx/2+1;
@@ -52,26 +52,26 @@ Ncx=4*Lc+1;
 M=(Nc^2+1)/2;
 Tcx=zeros(M);
 
-for i=Lc+1:2*Lc,
-	for j=Lc+1:3*Lc+1,
-		nm=(i-Lc-1)*(2*Lc+1)+j-Lc;
-		ccx=Cx(i-Lc:i+Lc,j-Lc:j+Lc);
-		ccxi=ccx(2*Lc+1:-1:1,2*Lc+1:-1:1);
-		ccx=ccx+ccxi;
-		ccx(Lc+1,Lc+1)=ccx(Lc+1,Lc+1)/2;
-		ccx=vectify(ccx');
-		Tcx(nm,:)=ccx(1:M)';
-	end
+for i=Lc+1:2*Lc
+    for j=Lc+1:3*Lc+1
+        nm=(i-Lc-1)*(2*Lc+1)+j-Lc;
+        ccx=Cx(i-Lc:i+Lc,j-Lc:j+Lc);
+        ccxi=ccx(2*Lc+1:-1:1,2*Lc+1:-1:1);
+        ccx=ccx+ccxi;
+        ccx(Lc+1,Lc+1)=ccx(Lc+1,Lc+1)/2;
+        ccx=vectify(ccx');
+        Tcx(nm,:)=ccx(1:M)';
+    end
 end
 i=2*Lc+1;
-for j=Lc+1:2*Lc+1,
-	nm=(i-Lc-1)*(2*Lc+1)+j-Lc;
-	ccx=Cx(i-Lc:i+Lc,j-Lc:j+Lc);
-	ccxi=ccx(2*Lc+1:-1:1,2*Lc+1:-1:1);
-	ccx=ccx+ccxi;
-	ccx(Lc+1,Lc+1)=ccx(Lc+1,Lc+1)/2;
-	ccx=vectify(ccx');
-	Tcx(nm,:)=ccx(1:M)';
+for j=Lc+1:2*Lc+1
+    nm=(i-Lc-1)*(2*Lc+1)+j-Lc;
+    ccx=Cx(i-Lc:i+Lc,j-Lc:j+Lc);
+    ccxi=ccx(2*Lc+1:-1:1,2*Lc+1:-1:1);
+    ccx=ccx+ccxi;
+    ccx(Lc+1,Lc+1)=ccx(Lc+1,Lc+1)/2;
+    ccx=vectify(ccx');
+    Tcx(nm,:)=ccx(1:M)';
 end
 
 % Rearrange Cy indices and solve the equation
@@ -124,4 +124,4 @@ Y=ifft2(Yf);
 %imStats(Cy,Cy3)
 
 
-		
+

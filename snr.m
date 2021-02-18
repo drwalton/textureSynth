@@ -1,4 +1,4 @@
-function X=SNR(s,n);
+function X = SNR(s,n)
 
 % Compute the signal-to-noise ratio in dB
 %  	X=SNR(signal,noise);

@@ -5,10 +5,10 @@
 %          javier@decsai.ugr.es / eero.simoncelli@nyu.edu
 %
 % See Readme.txt file for a brief description.
-% See ChangeLog file for latest modifications. 
+% See ChangeLog file for latest modifications.
 % Type "help <command-name>" for documentation on individual commands.
 % -----------------------------------------------------------------
-% Demonstrations: 
+% Demonstrations:
 %   example1	     - synthesis of "random text"
 %   example2         - synthesis mixing real and synthetic data
 %
@@ -27,8 +27,8 @@
 %   modskew	 - modify skewness (3rd moment divided by variance^1.5)
 %   adjustCorr1s - modify cross-correlation
 %   adjustCorr2s - modify cross-correlation, with some variables held fixed.
-%	
-% Example texture images:	
+%
+% Example texture images:
 %   text.pgm			(scanned by us)
 %   nuts.pgm			(from VisTex texture data base)
 %   metal.pgm			(VisTex)
